@@ -1,5 +1,4 @@
-//Muhammad Masab Hammad 
-//22I-1004
+
 
 
 #include <opencv2/core.hpp>
@@ -19,17 +18,17 @@ void store3DImage(Mat img, int*** arr)
 	
 	for (int i = 0;i < rows;i++) 
 	{
-		for (int j = 0;j < cols;j++)                                                                           // each intensity values stored in the array
+		for (int j = 0;j < cols;j++)                                                                        // each intensity values stored in the array
         {	
-            arr[i][j][0] = static_cast<int>(img.at<uchar>(i, j));                                              //at<uchar>() inbuilt function of OpenCv
-		}                                                                                                      //we can access pixel values at the cordinates given
-	}                                                                                                          //in this case i and j
-                                                                                                               //so each cordinate read, and stored in arr
+            arr[i][j][0] = static_cast<int>(img.at<uchar>(i, j));                                                   //at<uchar>() inbuilt function of OpenCv
+		}                                                                                                   //we can access pixel values at the cordinates given
+	}                                                                                                           //in this case i and j
+                                                                                                                    //so each cordinate read, and stored in arr
 	/*for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			cout << arr[i][j] << " ";                                                                           //testing purpose
+			cout << arr[i][j] << " ";                                                                   //testing purpose
 		}
 
 		cout << endl;
@@ -41,12 +40,12 @@ void print3DImage(int*** arr, int rows, int cols)
 	                                                                                                          //new Mat object to store the image through array given
 	Mat image(rows, cols, CV_8UC1);                                                                           // CV_8UC1 represents grayscale image
 
-    for (int i = 0; i < rows; i++)                                                                            //opposite of store3Dimage is happening
-    {                                                                                                         //pixel intensity value stored in the matrix is being stored at the speicifc cordinates
+    for (int i = 0; i < rows; i++)                                                                                //opposite of store3Dimage is happening
+    {                                                                                                             //pixel intensity value stored in the matrix is being stored at the speicifc cordinates
 		for (int j = 0; j < cols; j++)
         {
-			image.at<uchar>(i, j) = static_cast<uchar>(arr[i][j][0]);                                         //at unchar() accesses the specific pixel
-		}                                                                                                     //it reads values from the array already stored
+			image.at<uchar>(i, j) = static_cast<uchar>(arr[i][j][0]);                                 //at unchar() accesses the specific pixel
+		}                                                                                                 //it reads values from the array already stored
 	}                                                                                                         // and converts it to unchar to store it there
 
 	
@@ -59,7 +58,8 @@ void print3DImage(int*** arr, int rows, int cols)
 void apply3DConvolution(int*** arr, int rows, int cols)
 {
     // Define a simple averaging kernel
-    float kernel[3][3] = {{1.0 / 9, 1.0 / 9, 1.0 / 9}, {1.0 / 9, 1.0 / 9, 1.0 / 9}, {1.0 / 9, 1.0 / 9, 1.0 / 9}}; //averaging kernel is used (box fileter)
+    float kernel[3][3] = {{1.0 / 9, 1.0 / 9, 1.0 / 9}, {1.0 / 9, 1.0 / 9, 1.0 / 9}, {1.0 / 9, 1.0 / 9, 1.0 / 9}};
+													      //averaging kernel is used (box filter)
                                                                                                               //basically all its values have the same weight factor that is 1.0/9.
                                                                                                               //so it multiplies with the neighbiring array and can find the average of the values to store in the middle pixel of coresponding array
     
@@ -185,8 +185,8 @@ void apply3DConvolutionEdgeDetection(int*** arr, int rows, int cols)            
 
                     else
                     {
-                        sumX += kernelX[k][l] * arr[neighborX][neighborY][0];                                        //neighboring pixels multiplied with coresponding kernel values
-                        sumY += kernelY[k][l] * arr[neighborX][neighborY][0];                                        //for both x and y axis
+                        sumX += kernelX[k][l] * arr[neighborX][neighborY][0];                                    //neighboring pixels multiplied with coresponding kernel values
+                        sumY += kernelY[k][l] * arr[neighborX][neighborY][0];                                    //for both x and y axis
                     }
                 }
             }
@@ -199,16 +199,16 @@ void apply3DConvolutionEdgeDetection(int*** arr, int rows, int cols)            
         }
     }
 
-    print3DImage(edge, rows, cols);                                                                            //image printed
+    print3DImage(edge, rows, cols);                                                                              //image printed
+  
 
-
-    Mat EdgeImage(rows, cols, CV_8UC1);                                                                        //to save file, new Mat object made
+    Mat EdgeImage(rows, cols, CV_8UC1);                                                                          //to save file, new Mat object made
 
     for (int i = 0; i < rows; ++i)
     {
         for (int j = 0; j < cols; ++j)
         {
-            EdgeImage.at<uchar>(i, j) = uchar(edge[i][j][0]);                                                 //edge matrix values stored in new edge detection images specific cordinates
+            EdgeImage.at<uchar>(i, j) = uchar(edge[i][j][0]);                                                    //edge matrix values stored in new edge detection images specific cordinates
         }
     }
 
@@ -219,10 +219,10 @@ void apply3DConvolutionEdgeDetection(int*** arr, int rows, int cols)            
 }
 
 // Apply 3D Convolution for Feature Extraction:
-void apply3DConvolutionFeatureExtraction(int*** arr, int rows, int cols)                                     //used to identify patterns within image
+void apply3DConvolutionFeatureExtraction(int*** arr, int rows, int cols)                                      //used to identify patterns within image
 {                                                                                           
     
-    float kernel[3][3] = { {1, 0, 1}, {0, 1, 0}, {1, 0, 1} };                                                //just used a random kernel, experimented with values
+    float kernel[3][3] = { {1, 0, 1}, {0, 1, 0}, {1, 0, 1} };                                                 //just used a random kernel, experimented with values
 
     
     int*** extraction = new int** [rows];                                                                     //array created of the same size to store image
@@ -299,20 +299,20 @@ void apply3DConvolutionFeatureExtraction(int*** arr, int rows, int cols)        
 int main() 
 {
 
-	string path = "image-1.tiff";                   //storing the path of the immage
-	Mat image = imread(path, IMREAD_GRAYSCALE);                                                                         //creating an image and reading it as grayscale
+	string path = "image-1.tiff";                   						      //storing the path of the immage
+	Mat image = imread(path, IMREAD_GRAYSCALE);                                                           //creating an image and reading it as grayscale
 
 	//imshow("Image", image);
 	//cv::waitKey(0); 
 	//cv::destroyAllWindows(); 
 
-	int rows = image.size().height;                                                                                     //image rows set
-	int cols = image.size().width;                                                                                      //image cols set
-	int height = 1;                                                                                                     //grayscale image in 3d has 3rd dimension 1
-                                                                                                                        //1 stands for grayscale
-	int*** arr = new int** [rows];                                                                                      //3d array declaration
+	int rows = image.size().height;                                                                        //image rows set
+	int cols = image.size().width;                                                                         //image cols set
+	int height = 1;                                                                                        //grayscale image in 3d has 3rd dimension 1
+                                                                                                               //1 stands for grayscale
+	int*** arr = new int** [rows];                                                                         //3d array declaration
 
-	for (int i = 0; i < rows; i++)                                                                                      //Array dynamically declared
+	for (int i = 0; i < rows; i++)                                                                         //Array dynamically declared
 	{
 		arr[i] = new int* [cols];
 
@@ -322,14 +322,14 @@ int main()
 		}
 	}
 
-	store3DImage(image, arr);                                                                                           //store image function called
+	store3DImage(image, arr);                                                                               //store image function called
 
-	print3DImage(arr, rows, cols);                                                                                      //original image printed
+	print3DImage(arr, rows, cols);                                                                          //original image printed
 
-    apply3DConvolution(arr, rows, cols);                                                                                //Blurred image
+    apply3DConvolution(arr, rows, cols);                                                                        //Blurred image
 
-    apply3DConvolutionEdgeDetection(arr, rows, cols);                                                                   //Edge Detection Image
+    apply3DConvolutionEdgeDetection(arr, rows, cols);                                                           //Edge Detection Image
 
-    apply3DConvolutionFeatureExtraction(arr, rows, cols);                                                               //Feature Extraction Image
+    apply3DConvolutionFeatureExtraction(arr, rows, cols);                                                       //Feature Extraction Image
 	
 }
