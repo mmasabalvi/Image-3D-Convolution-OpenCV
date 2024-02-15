@@ -4,4 +4,4 @@ This repo holds the program for image processing on grayscale images using OpenC
 
 The sample grayscale images are also part of the repo.
 
-The code is very thorough, with relevant comments added to explain the entire procedure
+The code is very thorough, with relevant comments added to explain the entire procedure.
